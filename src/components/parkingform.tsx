@@ -10,9 +10,10 @@ const ParkingForm = () => {
     exitDate: "",
   });
 
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string>("");
 
-  const handleChange = (e) => {
+  // Define types for events
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -20,11 +21,10 @@ const ParkingForm = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
-      const response = await fetch("/api/parking/add", {
+      const response = await fetch("/api/park/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,12 +32,12 @@ const ParkingForm = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
+
       if (response.ok) {
-        const result = await response.json();
         setMessage("Parking record added successfully!");
-        console.log("Success:", result);
+        console.log("Success:", data);
       } else {
-        setResponseMessage(data.error || 'Failed to add question.');
+        setMessage(data.error || "Failed to add parking record.");
       }
     } catch (error) {
       setMessage("An error occurred while submitting the form.");
