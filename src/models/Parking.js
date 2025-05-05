@@ -6,6 +6,7 @@ const ParkingSchema = new mongoose.Schema({
   vehicleNumber: { type: String, required: true,unique:true },
   entryDate: { type: Date, required: true },
   exitDate: { type: Date, required: true },
+  parkingFee: Number,
   createdAt: { type: Date, default: Date.now },
 });
 

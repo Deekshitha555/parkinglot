@@ -11,7 +11,7 @@ const ParkingForm = () => {
   });
 
   const [message, setMessage] = useState<string>("");
-
+  const [calculatedFee, setCalculatedFee] = useState<number | null>(null);
   // Define types for events
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -32,10 +32,10 @@ const ParkingForm = () => {
         body: JSON.stringify(formData),
       });
       const data = await response.json();
-
+      console.log(data.fee)
       if (response.ok) {
         setMessage("Parking record added successfully!");
-        console.log("Success:", data);
+        setCalculatedFee(data.fee);
       } else {
         setMessage(data.error || "Failed to add parking record.");
       }
@@ -110,7 +110,16 @@ const ParkingForm = () => {
           Submit
         </button>
       </form>
-      {message && <p className="mt-4 text-center text-red-500">{message}</p>}
+      {message && (
+        <p className="mt-4 text-center text-red-500">
+          {message}
+          {calculatedFee !== null && (
+            <span className="block text-green-500 mt-2">
+              Parking Fee: {calculatedFee}/-
+            </span>
+          )}
+        </p>
+      )}
     </div>
   );
 };

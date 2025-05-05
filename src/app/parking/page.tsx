@@ -8,12 +8,12 @@ interface ParkingRecord {
     vehicleNumber: string;
     entryDate: string;
     exitDate: string;
+    parkingfee:string
   }
   
 const ParkingRecords = () => {
   const [parkingRecords, setParkingRecords] = useState<ParkingRecord[]>([]);
   const [message, setMessage] = useState<string>("");
-
   // Fetch parking records from the API
   useEffect(() => {
     const fetchParkingRecords = async () => {
@@ -70,6 +70,7 @@ const ParkingRecords = () => {
             <th className="border p-2">Vehicle Number</th>
             <th className="border p-2">Entry Date</th>
             <th className="border p-2">Exit Date</th>
+            <th className="border p-2">Paid amount</th>
             <th className="border p-2">Delete Record</th>
           </tr>
         </thead>
@@ -81,6 +82,7 @@ const ParkingRecords = () => {
               <td className="border p-2">{record.vehicleNumber}</td>
               <td className="border p-2">{new Date(record.entryDate).toLocaleDateString()}</td>
               <td className="border p-2">{new Date(record.exitDate).toLocaleDateString()}</td>
+              <td className="border p-2">{record.parkingfee}</td>
               <td className="border p-2">
                 <button
                   onClick={() => handleDelete(record._id)}
