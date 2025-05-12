@@ -4,7 +4,7 @@ import Parking from "@/models/Parking";
 async function getParkingRecords() {
   try {
     // Fetch all parking records
-    const parkingRecords = await Parking.find();
+    const parkingRecords = await Parking.find({});
     return { success: true, parkingRecords };
   } catch (error) {
     console.error("Error fetching parking records:", error);
