@@ -1,10 +1,11 @@
 import connectToDB from "@/utils/connecttodb";
 import Parking from "@/models/Parking";
-
+import { cors } from "../../../../libs/cors";
 const PARKING_LIMIT = 5; // Define the parking limit
 const HOURLY_RATE = 50; // Define hourly rate for parking
 
 export async function POST(req) {
+   await cors(req, new Response());
   // Connect to the database
   await connectToDB();
 

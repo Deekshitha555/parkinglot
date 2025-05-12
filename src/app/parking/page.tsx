@@ -15,16 +15,14 @@ const ParkingRecords = () => {
   const [parkingRecords, setParkingRecords] = useState<ParkingRecord[]>([]);
   const [message, setMessage] = useState<string>("");
   // Fetch parking records from the API
- useEffect(() => {
+  useEffect(() => {
     const fetchParkingRecords = async () => {
       try {
-        const response = await fetch("/api/proxy", {
-          method: "GET",
-        });
+        const response = await fetch("/api/park/get");
         const data = await response.json();
 
         if (response.ok) {
-          setParkingRecords(data.parkingRecords); // Ensure your proxy returns `parkingRecords`
+          setParkingRecords(data.parkingRecords);
         } else {
           setMessage(data.error || "Failed to fetch parking records.");
         }
@@ -36,6 +34,7 @@ const ParkingRecords = () => {
 
     fetchParkingRecords();
   }, []);
+
   // Handle delete request
   const handleDelete = async (id: string) => {
     console.log(id)
